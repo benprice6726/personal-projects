@@ -7,12 +7,14 @@ import time
 
 
 class Motivator:
-    def __init__(self,work_set,end_time,clock_increment,interval):
+    def __init__(self,work_set,end_time,clock_increment,interval,min_rep,max_rep):
         self.start_time=datetime.now()
         self.work_set=work_set#workouts to do, as list of strings
         self.end_time=end_time
         self.clock_increment=clock_increment#Lets you choose whether to compare hours, hours+minutes, or hours+minutes+seconds
         self.interval=interval
+        self.min_rep=min_rep
+        self.max_rep=max_rep
         self.rep_tracker={key:0 for key in self.work_set}
         print(self.start_time)
         print(self.rep_tracker)
@@ -28,7 +30,7 @@ class Motivator:
         y=(sh-h)/2
         pop.geometry('%dx%d+%d+%d' % (w,h,x,y))
         rand_num=rand.randrange(0,len(self.work_set))
-        num_reps=rand.randint(10,20)
+        num_reps=rand.randint(self.min_rep,self.max_rep)
         self.rep_tracker[self.work_set[rand_num]]+=num_reps
         label=tk.Label(pop,text=self.work_set[rand_num]+"\n"+str(num_reps)+" reps",width=120,height=10)
         label.pack()
@@ -89,5 +91,5 @@ class Motivator:
         print(self.rep_tracker)
 
 
-blah=Motivator(["push ups","sit ups","squats"],"18:20:00","m",120)
+blah=Motivator(["push ups","sit ups","squats","ab roll up and down"],"18:20:00","m",120,10,20)
 blah.run()
